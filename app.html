@@ -114,7 +114,7 @@
     <div id="actError" style="color:var(--danger);font-size:.85rem;margin-top:10px;display:none">Código incorrecto. Inténtalo de nuevo.</div>
   </div>
 </div>
-<header><h1>🍽️ Gestión de <span>Restaurante</span></h1></header>
+<header><h1>🍽️ Restaurante <span>Drito's</span></h1></header>
 <nav>
   <button class="active" data-tab="mesas">🪑 Mesas</button>
   <button data-tab="historial">📊 Historial</button>
@@ -307,11 +307,11 @@ function pintarLogo(doc,cx,y,anchoMax){
     return h;
   }catch(e){return 0;}
 }
-function appActivada(){return localStorage.getItem('rest_activado')==='si';}
+function appActivada(){return localStorage.getItem('dritos_activado')==='si';}
 function comprobarCodigo(){
   const v=document.getElementById('actCode').value.trim().toLowerCase();
   if(v===COD_OK){
-    localStorage.setItem('rest_activado','si');
+    localStorage.setItem('dritos_activado','si');
     document.getElementById('activacion').style.display='none';
   }else{
     document.getElementById('actError').style.display='block';
@@ -328,8 +328,8 @@ if(!appActivada()){
 const SECS={entrantes:"Entrantes",para_picar:"Para picar",tapas:"Tapas",primeros:"Ensaladas",segundos:"Segundos",carnes:"Carnes",pescados:"Pescados",brasa:"De la brasa al plato",casa:"Platos de la casa",tablas_ibericas:"Tablas Ibéricas",para_menus:"Para Menús",vegetales:"Bocadillos vegetales",hamburguesas:"Hamburguesas",bocadillos_calientes:"Bocadillos calientes",bocadillos_frios:"Bocadillos fríos",bocadillos_especiales:"Bocadillos especiales",postres:"Postres",infantil:"Infantil",bebidas:"Bebidas",refrescos:"Refrescos",cervezas:"Cervezas",sidras:"Sidras",vinos:"Vinos"};
 // Claves de las secciones ordenadas alfabéticamente por su nombre
 function secKeys(){return Object.keys(SECS).sort((a,b)=>SECS[a].localeCompare(SECS[b],'es'));}
-let dishes=JSON.parse(localStorage.getItem('rest_dishes')||'[]');
-let menus=JSON.parse(localStorage.getItem('rest_menus')||'{}');
+let dishes=JSON.parse(localStorage.getItem('dritos_dishes')||'[]');
+let menus=JSON.parse(localStorage.getItem('dritos_menus')||'{}');
 // Migrar menús del formato antiguo (primeros/segundos/postres/bebidas) al de grupos
 (function migrateMenus(){
   let changed=false;
@@ -346,14 +346,14 @@ let menus=JSON.parse(localStorage.getItem('rest_menus')||'{}');
       changed=true;
     }
   });
-  if(changed)localStorage.setItem('rest_menus',JSON.stringify(menus));
+  if(changed)localStorage.setItem('dritos_menus',JSON.stringify(menus));
 })();
-let rest=JSON.parse(localStorage.getItem('rest_info')||'{"name":"","phone":""}');
-let mesas=JSON.parse(localStorage.getItem('rest_mesas')||'[]');
-let historial=JSON.parse(localStorage.getItem('rest_historial')||'[]');
+let rest=JSON.parse(localStorage.getItem('dritos_info')||'{"name":"","phone":""}');
+let mesas=JSON.parse(localStorage.getItem('dritos_mesas')||'[]');
+let historial=JSON.parse(localStorage.getItem('dritos_historial')||'[]');
 
-function save(){localStorage.setItem('rest_dishes',JSON.stringify(dishes));localStorage.setItem('rest_menus',JSON.stringify(menus));localStorage.setItem('rest_mesas',JSON.stringify(mesas));localStorage.setItem('rest_historial',JSON.stringify(historial));}
-function saveRest(){rest={name:document.getElementById('rName').value,phone:document.getElementById('rPhone').value};localStorage.setItem('rest_info',JSON.stringify(rest));}
+function save(){localStorage.setItem('dritos_dishes',JSON.stringify(dishes));localStorage.setItem('dritos_menus',JSON.stringify(menus));localStorage.setItem('dritos_mesas',JSON.stringify(mesas));localStorage.setItem('dritos_historial',JSON.stringify(historial));}
+function saveRest(){rest={name:document.getElementById('rName').value,phone:document.getElementById('rPhone').value};localStorage.setItem('dritos_info',JSON.stringify(rest));}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
 function eur(n){return Number(n||0).toFixed(2)+' €';}
 
@@ -770,10 +770,10 @@ async function publicarAvisoQR(){
   const hoy=new Date();
   const datos={tipo:'aviso',mensaje:msg,
     fecha:hoy.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})};
-  let token=localStorage.getItem('gh_token');
+  let token=localStorage.getItem('dritos_gh_token');
   if(!token){
     token=prompt('Para publicar (solo la primera vez) pega aquí tu token de GitHub.\n\nSe guardará en este dispositivo.\n\n(Créalo en github.com/settings/tokens con permiso "repo")');
-    if(!token)return;token=token.trim();localStorage.setItem('gh_token',token);
+    if(!token)return;token=token.trim();localStorage.setItem('dritos_gh_token',token);
   }
   toast('Publicando aviso…');
   const repo='vbeldad/dritos', path='menu-data.json';
@@ -786,7 +786,7 @@ async function publicarAvisoQR(){
     const r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+path,{
       method:'PUT',headers:{Authorization:'token '+token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(r.ok){toast('✅ Aviso publicado. El QR muestra el logo'+(msg?' y tu mensaje.':'.'));}
-    else if(r.status===401){localStorage.removeItem('gh_token');toast('Token no válido. Pulsa de nuevo.',true);}
+    else if(r.status===401){localStorage.removeItem('dritos_gh_token');toast('Token no válido. Pulsa de nuevo.',true);}
     else{const e=await r.json();toast('Error: '+(e.message||r.status),true);}
   }catch(err){toast('Error de conexión al publicar',true);}
 }
@@ -794,12 +794,12 @@ async function publicarMenuQR(){
   const datos=construirMenuPublicable();
   if(!datos){toast('Configura y guarda primero el menú');return;}
   // Recuperar token guardado o pedirlo
-  let token=localStorage.getItem('gh_token');
+  let token=localStorage.getItem('dritos_gh_token');
   if(!token){
     token=prompt('Para publicar el menú (solo la primera vez) pega aquí tu token de GitHub.\n\nSe guardará en este dispositivo para las próximas veces.\n\n(Créalo en github.com/settings/tokens con permiso "repo")');
     if(!token)return;
     token=token.trim();
-    localStorage.setItem('gh_token',token);
+    localStorage.setItem('dritos_gh_token',token);
   }
   toast('Publicando menú…');
   const repo='vbeldad/dritos', path='menu-data.json';
@@ -815,7 +815,7 @@ async function publicarMenuQR(){
       method:'PUT',headers:{Authorization:'token '+token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(r.ok){toast('✅ Menú publicado. Ya se ve al escanear el QR.');}
     else if(r.status===401){
-      localStorage.removeItem('gh_token');
+      localStorage.removeItem('dritos_gh_token');
       toast('El token no es válido. Vuelve a pulsar Publicar e introdúcelo de nuevo.',true);
     }else{
       const e=await r.json();toast('Error al publicar: '+(e.message||r.status),true);
@@ -823,7 +823,7 @@ async function publicarMenuQR(){
   }catch(err){toast('Error de conexión al publicar',true);}
 }
 function borrarTokenGuardado(){
-  localStorage.removeItem('gh_token');
+  localStorage.removeItem('dritos_gh_token');
   toast('Token borrado de este dispositivo');
 }
 function mostrarQR(){
@@ -870,10 +870,10 @@ function construirCartaPublicable(){
 async function publicarCartaQR(){
   const datos=construirCartaPublicable();
   if(!datos){toast('Selecciona al menos una sección con platos',true);return;}
-  let token=localStorage.getItem('gh_token');
+  let token=localStorage.getItem('dritos_gh_token');
   if(!token){
     token=prompt('Para publicar la carta (solo la primera vez) pega aquí tu token de GitHub.\n\nSe guardará en este dispositivo.\n\n(Créalo en github.com/settings/tokens con permiso "repo")');
-    if(!token)return;token=token.trim();localStorage.setItem('gh_token',token);
+    if(!token)return;token=token.trim();localStorage.setItem('dritos_gh_token',token);
   }
   toast('Publicando carta…');
   const repo='vbeldad/dritos', path='carta-data.json';
@@ -886,7 +886,7 @@ async function publicarCartaQR(){
     const r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+path,{
       method:'PUT',headers:{Authorization:'token '+token,'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(r.ok){toast('✅ Carta publicada. Ya se ve al escanear el QR.');}
-    else if(r.status===401){localStorage.removeItem('gh_token');toast('Token no válido. Pulsa Publicar de nuevo.',true);}
+    else if(r.status===401){localStorage.removeItem('dritos_gh_token');toast('Token no válido. Pulsa Publicar de nuevo.',true);}
     else{const e=await r.json();toast('Error: '+(e.message||r.status),true);}
   }catch(err){toast('Error de conexión al publicar',true);}
 }
@@ -1057,7 +1057,7 @@ function importData(e){
       if(!data.dishes&&!data.menus){toast('Archivo no válido');return;}
       if(!confirm('Esto reemplazará todos los datos actuales por los de la copia. ¿Continuar?'))return;
       dishes=data.dishes||[];menus=data.menus||{};rest=data.rest||{name:'',phone:''};mesas=data.mesas||[];historial=data.historial||[];
-      save();localStorage.setItem('rest_info',JSON.stringify(rest));
+      save();localStorage.setItem('dritos_info',JSON.stringify(rest));
       document.getElementById('rName').value=rest.name||'';
       document.getElementById('rPhone').value=rest.phone||'';
       renderDB();renderMesas();
