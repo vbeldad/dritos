@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENVi — Food & Coffee</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Times New Roman',Georgia,serif;
+    background:#faf7f0;
+    color:#4a3a2a;
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:20px;
+  }
+  .marco{
+    position:relative;
+    width:100%;max-width:640px;
+    background:#faf7f0;
+    border:3px solid #b08d57;
+    padding:56px 34px 48px;
+    text-align:center;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+  .marco::before{
+    content:"";
+    position:absolute;inset:9px;
+    border:1px solid #b08d57;
+    pointer-events:none;
+  }
+  /* adornos de esquina */
+  .esq{position:absolute;width:26px;height:26px;border-color:#b08d57;border-style:solid;border-width:0}
+  .esq.tl{top:16px;left:16px;border-top-width:2px;border-left-width:2px}
+  .esq.tr{top:16px;right:16px;border-top-width:2px;border-right-width:2px}
+  .esq.bl{bottom:16px;left:16px;border-bottom-width:2px;border-left-width:2px}
+  .esq.br{bottom:16px;right:16px;border-bottom-width:2px;border-right-width:2px}
+
+  .logo{max-width:78%;height:auto;margin:6px auto 8px;display:block}
+
+  .adorno{display:flex;align-items:center;justify-content:center;gap:14px;margin:26px 0 30px}
+  .adorno .linea{width:90px;height:1px;background:#b08d57}
+  .adorno .rombo{width:11px;height:11px;background:#b08d57;transform:rotate(45deg)}
+
+  .bienvenida{
+    font-size:1.35rem;color:#8a6d3b;font-style:italic;
+    margin-bottom:8px;letter-spacing:.5px;
+  }
+  .sub{font-size:1rem;color:#9a8a78;margin-bottom:34px;font-style:italic}
+
+  .btn-entrar{
+    display:inline-block;
+    background:#b08d57;color:#fff;
+    font-family:Georgia,serif;font-size:1.15rem;letter-spacing:2px;
+    text-transform:uppercase;text-decoration:none;
+    padding:15px 54px;border-radius:4px;
+    transition:background .2s, transform .2s;
+    box-shadow:0 4px 14px rgba(176,141,87,.4);
+  }
+  .btn-entrar:hover{background:#9a7842;transform:translateY(-2px)}
+  .btn-entrar:active{transform:translateY(0)}
+
+  .contacto{
+    margin-top:40px;padding-top:26px;
+    border-top:1px solid #e4dbca;
+    color:#6a5c4e;font-family:Arial,Helvetica,sans-serif;
+    font-size:1rem;line-height:2;
+  }
+  .contacto a{color:#6a5c4e;text-decoration:none}
+  .contacto .et{color:#b08d57;font-weight:bold;margin-right:6px}
+
+  @media(max-width:480px){
+    .marco{padding:44px 22px 38px}
+    .bienvenida{font-size:1.15rem}
+    .btn-entrar{padding:14px 40px;font-size:1.05rem}
+  }
+</style>
+</head>
+<body>
+  <div class="marco">
+    <span class="esq tl"></span><span class="esq tr"></span>
+    <span class="esq bl"></span><span class="esq br"></span>
+
+    <img src="logo.png.png" alt="ENVi Food & Coffee" class="logo">
+
+    <div class="adorno"><span class="linea"></span><span class="rombo"></span><span class="linea"></span></div>
+
+    <div class="bienvenida">Bienvenidos</div>
+    <div class="sub">Food &amp; Coffee</div>
+
+    <a href="app.html" class="btn-entrar">Entrar</a>
+
+    <div class="contacto">
+      <div><span class="et">Tel.</span><a href="tel:680904535">680 904 535</a></div>
+      <div><span class="et">✉</span><a href="mailto:envi.viladecans@gmail.com">envi.viladecans@gmail.com</a></div>
+    </div>
+  </div>
+</body>
+</html>
