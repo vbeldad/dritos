@@ -1,1 +1,24 @@
-{"secciones":[],"fecha":""}
+{
+  "secciones": [
+    {
+      "nombre": "Bebidas",
+      "platos": [
+        {
+          "name": "jamon con melon",
+          "price": 0,
+          "desc": "",
+          "precio2": "",
+          "precio2Et": ""
+        },
+        {
+          "name": "melon con jamon",
+          "price": 0,
+          "desc": "",
+          "precio2": "",
+          "precio2Et": ""
+        }
+      ]
+    }
+  ],
+  "fecha": "15/08/2026"
+}
