@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión de Restaurante</title>
+<title>Gestión · Cervesería Drito's</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -762,10 +762,6 @@ function cartelAvisoPDF(){
     doc.setTextColor(...DOR);
     doc.text('Bienvenidos',W/2,y,{align:'center'});
   }
-  // Pie con contacto
-  doc.setFont(undefined,'normal');doc.setFontSize(13);doc.setTextColor(120,110,98);
-  doc.text('Tel. 680 904 535',W/2,H-40,{align:'center'});
-  doc.text('envi.viladecans@gmail.com',W/2,H-32,{align:'center'});
   doc.save('cartel-aviso.pdf');
   toast('Cartel generado ✔');
 }
