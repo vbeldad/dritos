@@ -328,7 +328,7 @@ if(!appActivada()){
     document.getElementById('actCode').focus();
   });
 }
-const SECS={entrantes:"Entrantes",para_picar:"Para picar",tapas:"Tapas",primeros:"Ensaladas",segundos:"Segundos",carnes:"Carnes",pescados:"Pescados",brasa:"De la brasa al plato",casa:"Platos de la casa",tablas_ibericas:"Tablas Ibéricas",para_menus:"Para Menús",vegetales:"Bocadillos vegetales",hamburguesas:"Hamburguesas",bocadillos_calientes:"Bocadillos calientes",bocadillos_frios:"Bocadillos fríos",bocadillos_especiales:"Bocadillos especiales",postres:"Postres",infantil:"Infantil",bebidas:"Bebidas",refrescos:"Refrescos",cervezas:"Cervezas",sidras:"Sidras",vinos:"Vinos"};
+const SECS={entrantes:"Entrantes",para_picar:"Para picar",tapas:"Tapas",primeros:"Ensaladas",segundos:"Segundos",carnes:"Carnes",pescados:"Pescados",brasa:"De la brasa al plato",casa:"Platos de la casa",tablas_ibericas:"Tablas Ibéricas",para_menus:"Para Menús",vegetales:"Bocadillos vegetales",hamburguesas:"Hamburguesas",bocadillos_calientes:"Bocadillos calientes",bocadillos_frios:"Bocadillos fríos",bocadillos_especiales:"Bocadillos especiales",postres:"Postres",infantil:"Infantil",bebidas:"Bebidas",refrescos:"Refrescos",cervezas:"Cervezas",sidras:"Sidras",vinos:"Vinos",cafe:"Café",licores:"Licores",platos_combinados:"Platos combinados",comida_china:"Comida China"};
 // Claves de las secciones ordenadas alfabéticamente por su nombre
 function secKeys(){return Object.keys(SECS).sort((a,b)=>SECS[a].localeCompare(SECS[b],'es'));}
 let dishes=JSON.parse(localStorage.getItem('dritos_dishes')||'[]');
